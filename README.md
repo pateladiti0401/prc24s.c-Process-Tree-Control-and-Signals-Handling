@@ -1,7 +1,7 @@
-# prc24s.c: Process Tree Control and Signals Handling
+# prc24.c: Process Tree Control and Signals Handling
 
 ## Overview
-The `prc24s.c` program is a powerful utility designed to manage and interact with processes in a Unix-like operating system. It allows users to explore and control process trees rooted at a specified process, send signals to control process behavior, and retrieve detailed information about the status of processes, including their descendants, siblings, and whether they are orphaned or zombie processes.
+The `prc24.c` program is a powerful utility designed to manage and interact with processes in a Unix-like operating system. It allows users to explore and control process trees rooted at a specified process, send signals to control process behavior, and retrieve detailed information about the status of processes, including their descendants, siblings, and whether they are orphaned or zombie processes.
 
 ## Features
 - **Search Process Trees**: Identify if a given process belongs to a tree rooted at a specified process and print its PID and PPID.
@@ -36,7 +36,9 @@ gcc -o prc24s prc24s.c
 
 ### Running the Program
 To run the program, use the following syntax:
-`./prc24s [Option] [root_process] [process_id]`
+```bash
+./prc24s [Option] [root_process] [process_id]
+```
 
 ## Technical Concepts
 This project leverages several important Unix process management concepts:
