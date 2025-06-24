@@ -1,49 +1,90 @@
-# prc24.c: Process Tree Control and Signals Handling
+# 🌲 prc24s.c — Process Tree Control and Signals Handling
 
-## Overview
-The `prc24.c` program is a powerful utility designed to manage and interact with processes in a Unix-like operating system. It allows users to explore and control process trees rooted at a specified process, send signals to control process behavior, and retrieve detailed information about the status of processes, including their descendants, siblings, and whether they are orphaned or zombie processes.
+**prc24s.c** is a Unix-based utility program designed to interact with and control process trees. It provides tools to send signals, retrieve detailed process relationship data (siblings, children, orphans, zombies), and manage process states across the tree rooted at a given process.
 
-## Features
-- **Search Process Trees**: Identify if a given process belongs to a tree rooted at a specified process and print its PID and PPID.
-- **Process Control via Signals**: Use options to send signals like `SIGKILL`, `SIGSTOP`, and `SIGCONT` to processes within the tree.
-- **Detailed Process Information**: List descendants, siblings, and grandchildren, and check if processes are defunct or orphaned.
-- **Orphan and Zombie Detection**: Identify and manage orphan and zombie processes.
+---
 
-## Options
-The program supports a variety of command-line options:
+## 📌 Overview
 
-- `-dx`: Kill all descendants of the `root_process` using `SIGKILL`.
-- `-dt`: Send `SIGSTOP` to all descendants of the `root_process`.
-- `-dc`: Send `SIGCONT` to all descendants of the `root_process` that have been paused.
-- `-rp`: Kill the specified `process_id` if it belongs to the tree rooted at `root_process`.
-- `-nd`: List the PIDs of all non-direct descendants of the `process_id`.
-- `-dd`: List the PIDs of all immediate descendants of the `process_id`.
-- `-sb`: List the PIDs of all sibling processes of the `process_id`.
-- `-bz`: List the PIDs of all sibling processes of the `process_id` that are defunct (zombie).
-- `-zd`: List the PIDs of all descendants of the `process_id` that are defunct (zombie).
-- `-od`: List the PIDs of all descendants of the `process_id` that are orphans.
-- `-gc`: List the PIDs of all grandchildren of the `process_id`.
-- `-sz`: Print the status of the `process_id` as Defunct or Not Defunct.
-- `-so`: Print the status of the `process_id` as Orphan or Not Orphan.
-- `-kz`: Kill the parents of all zombie processes that are descendants of the `process_id` (including the `process_id` itself if applicable).
+This utility helps:
 
-## Compilation and Usage
-### Compilation
-To compile the program, use the following command:
+- Explore the hierarchical **process tree** of any root process.
+- Control processes by sending **Unix signals** like `SIGKILL`, `SIGSTOP`, and `SIGCONT`.
+- Identify **zombie**, **orphan**, and **defunct** processes.
+- Print **descendants**, **siblings**, and **grandchildren** of any process.
+
+---
+
+## 🧠 Features
+
+- ✅ **Process Tree Navigation**  
+  Identify if a process belongs to a tree and fetch its `PID` and `PPID`.
+
+- 🔁 **Signal Control**  
+  Send signals to descendants for kill, pause, or continue operations.
+
+- 🔎 **Relationship Discovery**  
+  List descendants, immediate children, siblings, and grandchildren.
+
+- ☠️ **Zombie Detection**  
+  Identify and manage zombie (defunct) processes.
+
+- 👻 **Orphan Identification**  
+  Detect orphaned processes (whose parent is no longer alive).
+
+---
+
+## ⚙️ Command-Line Options
+
+| Option  | Description |
+|---------|-------------|
+| `-dx`   | Kill all **descendants** of `root_process` using `SIGKILL`. |
+| `-dt`   | Send `SIGSTOP` to all **descendants** of `root_process`. |
+| `-dc`   | Send `SIGCONT` to **paused descendants** of `root_process`. |
+| `-rp`   | Kill the `process_id` **if** it belongs to the tree rooted at `root_process`. |
+| `-nd`   | List all **non-direct descendants** of `process_id`. |
+| `-dd`   | List all **immediate children** of `process_id`. |
+| `-sb`   | List all **siblings** of `process_id`. |
+| `-bz`   | List all **zombie siblings** of `process_id`. |
+| `-zd`   | List all **zombie descendants** of `process_id`. |
+| `-od`   | List all **orphan descendants** of `process_id`. |
+| `-gc`   | List all **grandchildren** of `process_id`. |
+| `-sz`   | Show whether `process_id` is **Defunct** or **Not Defunct**. |
+| `-so`   | Show whether `process_id` is **Orphan** or **Not Orphan**. |
+| `-kz`   | Kill the **parents** of all zombie descendants of `process_id` (including itself if applicable). |
+
+---
+
+## 🛠️ Compilation
+
+Use the following command to compile the source code:
+
 ```bash
 gcc -o prc24s prc24s.c
 ```
 
-### Running the Program
-To run the program, use the following syntax:
+---
+
+##  🚀 Usage
+
+To run the compiled executable:
+
 ```bash
 ./prc24s [Option] [root_process] [process_id]
 ```
+📌 Note: Some options do not require both root_process and process_id.
 
-## Technical Concepts
-This project leverages several important Unix process management concepts:
 
-- Process Trees: Understanding and navigating the hierarchical structure of processes.
-- Signals: Sending control signals like SIGKILL, SIGSTOP, and SIGCONT to processes.
-- Zombie Processes: Managing processes that have completed execution but remain in the process table.
-- Orphan Processes: Identifying processes whose parent has exited.
+---
+
+##  🧬 Technical Concepts Used
+
+- Process Trees: Visualizing the parent-child hierarchy in Unix systems.
+
+- Signals: Handling SIGKILL, SIGSTOP, SIGCONT using kill().
+
+- Zombie Processes: Processes that have finished execution but still exist in the process table.
+
+- Orphan Processes: Child processes with a terminated parent.
+
+- Process Relationship Identification: Exploring direct and indirect process connections via /proc filesystem.
